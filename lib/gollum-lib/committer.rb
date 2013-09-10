@@ -120,7 +120,8 @@ module Gollum
 
       fullpath = fullpath.force_encoding('ascii-8bit') if fullpath.respond_to?(:force_encoding)
 
-      index.add(fullpath, @wiki.normalize(data))
+      data = @wiki.normalize(data) unless @wiki.binary_files.include? format
+      index.add(fullpath, data)
     end
 
     # Update the given file in the repository's working directory if there

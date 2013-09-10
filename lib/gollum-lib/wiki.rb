@@ -151,6 +151,9 @@ module Gollum
     # Gets side on which the sidebar should be shown
     attr_reader :bar_side
 
+    # Which files are considered as binary?
+    attr_reader :binary_files
+
     # Public: Initialize a new Gollum Repo.
     #
     # path    - The String path to the Git repository that holds the Gollum
@@ -183,6 +186,8 @@ module Gollum
     #                             - :left
     #                             - :right
     #           :allow_uploads - Set to true to allow file uploads.
+    #           :binary_files  - Which files are considered as binary?
+    #                            Default: jpg jpeg gif png
     #
     # Returns a fresh Gollum::Repo.
     def initialize(path, options = {})
@@ -223,6 +228,7 @@ module Gollum
       @user_icons           = ['gravatar', 'identicon'].include?( options[:user_icons] ) ?
                               options[:user_icons] : 'none'
       @allow_uploads        = options.fetch :allow_uploads, false
+      @binary_files         = options.fetch :binary_files, %w(jpg jpeg gif png)
     end
 
     # Public: check whether the wiki's git repo exists on the filesystem.
